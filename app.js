@@ -1,64 +1,71 @@
-//connect to database 
+const express = require('express')
 
-//import mysql
-const mysql = require ('mysql2')
+const app = express()
 
 
-con = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "6922",
-     database: 'Student'
+app.use(express.static('public'))
+
+app.set('view engine', 'ejs') 
+
+
+app.get("/Home", (req,res) => {
+    res.render('Home')
 })
 
-con.connect((err)=>{
-    if(!err){
-        console.log("connected to the database at port 3306...")
-    }
-    else console.log("not able to connect...")
+app.get("/About", (req,res) => {
+    res.render('About')
 })
 
-// let sql = "CREATE DATABASE IF NOT EXISTS Student"
+app.get("/Products", (req,res) => {
+    res.render('Products')
+})
 
-// con.execute(sql,(err,results) =>{
-//     if(!err){
-//         console.log("Student database successfully created")
-//     }
-// })
+app.get("/New-Address", (req,res) => {
+    res.render('Add a New Address')
+})
 
-// let sql2 = "CREATE TABLE IF NOT EXISTS student (sid INT PRIMARY KEY, name VARCHAR(50), age INT );"
+app.get("/Change-Address", (req,res) => {
+    res.render('Change Address')
+})
 
-// con.query(sql2,(err,results)=>{
-//     if(!err)
-//         console.log("Student table successfully created")
-    
-// })
+app.get("/Chasing", (req,res) => {
+    res.render('Chasing')
+})
 
-// let sql3 = "INSERT INTO student VALUES (2,'Pablo Gomez',18)"
-// con.query(sql3,(err,result)=>{
-//     if(!err)
-//         console.log(result)
-//         else console.log("cannot insert data")
-    
-// })
+app.get("/Edit-Profile", (req,res) => {
+    res.render('Edit User Profile')
+})
 
-let sql4 = "SELECT stud.name, subj.description\
-FROM student as stud, subject as subj\
-WHERE stud.sid=subj.sid"
-con.query(sql4,(err,result)=>{
-        if(!err)
-        console.log(result )
-    })
+app.get("/Log-In", (req,res) => {
+    res.render('Log In')
+})
 
-// let sql5 = "UPDATE student SET name='Pablo Gomez' WHERE sid2"
-// con.query(sql5,(err,results)=>{
-//     if(!err)
-//     console.log("successfully updated the record")
-// })
+app.get("/Search", (req,res) => {
+    res.render('Search')
+})
 
-// let sql6 = "DELETE FROM student WHERE sid=1"
-// con.query(sql6,(err,results)=>{
-//     if(!err)
-//     console.log("record deleted")
-// })
+app.get("/Shipping", (req,res) => {
+    res.render('Shipping and Billing')
+})
+
+app.get("/Shopping-Cart", (req,res) => {
+    res.render('Shopping Cart')
+})
+
+app.get("/Sign-Up", (req,res) => {
+    res.render('Sign Up')
+})
+
+app.get("/User-Profile", (req,res) => {
+    res.render('User Profile')
+})
+``
+
+app.use((req,res) => {
+    res.status(404).render('error404.ejs')
+})
+
+
+app.listen(3000, () => {
+    console.log("server is listening at port 3000...")
+})
